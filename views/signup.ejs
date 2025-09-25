@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In</title>
+  <%- include('./partials/head') %>
+</head>
+<body>
+  
+
+ <%- include('./partials/navbar') %>
+<div class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
+   <% if (locals.error) { %>
+  <div class="py-3 px-2 bg-red-300 text-red-500 text-center rounded-xl">
+    <%= error %>
+  </div>
+<% } %>
+    <!-- Title -->
+    <div class="text-center">
+      <h1 class="text-2xl font-bold text-gray-800">Sign Up</h1>
+      <p class="text-gray-500 text-sm mt-2">Welcome back! Please enter your details</p>
+    </div>
+
+    <form action="/user/signup" method="POST">
+  
+    <!-- username -->
+     <div class="flex flex-col space-y-1">
+      <label>Fullname</label>
+      <input type="text" name ="fullname" placeholder="Enter your fullname" class="px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 text-gray-700">
+    </input>
+    </div>
+       <!-- email -->
+    <div class="flex flex-col space-y-1">
+      <label>Email</label>
+      <input type="email" name ="email" placeholder="example@mail.com" class="px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 text-gray-700">
+    </input>
+    </div>
+    <!-- Password -->
+    <div class="flex flex-col space-y-2 pb-2 ">
+      <label>Password</label>
+      <input type="password" name ="password"  placeholder="password" class="px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 text-gray-700">
+    </input>
+    </div>
+    <!-- Sign In Button -->
+    <button  type="submit" class="w-full bg-blue-600 text-white text-center py-3 rounded-xl font-medium cursor-pointer hover:bg-blue-700 transition">
+      Sign Up
+    </button>
+ </form>
+
+    <!-- Divider -->
+    <div class="flex items-center space-x-2">
+      <div class="flex-1 h-px bg-gray-300"></div>
+      <div class="text-gray-500 text-sm">OR</div>
+      <div class="flex-1 h-px bg-gray-300"></div>
+    </div>
+
+    <!-- Social Sign In -->
+    <div class="space-y-3">
+      <div class="w-full border border-gray-300 py-3 rounded-xl text-center cursor-pointer hover:bg-gray-50 transition">
+        Continue with Google
+      </div>
+      <div class="w-full border border-gray-300 py-3 rounded-xl text-center cursor-pointer hover:bg-gray-50 transition">
+        Continue with Facebook
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center text-gray-500 text-sm">
+      Don’t have an account? 
+       <a href="/user/signin" class="text-blue-600 font-medium cursor-pointer hover:underline">Sign In</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

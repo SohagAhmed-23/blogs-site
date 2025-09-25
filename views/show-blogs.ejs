@@ -1,0 +1,73 @@
+<%- include('./partials/head') %>
+<%- include('./partials/navbar') %>
+
+<div class="min-h-screen bg-gray-100  flex justify-center item-center pt-20">
+  <div class="max-w-3xl w-full bg-white rounded-2xl shadow-lg overflow-hidden">
+
+    <% if (blog.coverImage) { %>
+    <img src="<%= blog.coverImage %>" alt="Cover Image" class="w-full h-64 object-cover">
+    <% } else { %>
+    <div class="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-400">
+      No Cover Image
+    </div>
+    <% } %>
+
+    <div class="p-8 flex flex-col space-y-4">
+
+    
+      <h1 class="text-3xl font-bold text-gray-800"><%= blog.title %></h1>
+
+     
+      <div class="flex items-center space-x-4 text-gray-500 text-sm">
+        <span>Author: <%= blog.authorName %></span>
+        <span>Published: <%= new Date(blog.createdAt).toLocaleDateString() %></span>
+      </div>
+
+   
+      <p class="text-gray-700 whitespace-pre-line">
+        <%= blog.content %>
+      </p>
+
+      <ul class="space-y-2 mt-2">
+  <% blog.comment.forEach(c => { %>
+      <li class="border rounded-lg p-2 bg-gray-100">
+      <%= c.text %> 
+      <span class="text-gray-500 text-sm">— <%= c.name || "Anonymous" %></span>
+    </li>
+  <% }) %>
+</ul>
+
+
+      <% if (locals.user) { %>
+      <main class="max-w-xl ">
+        <h1 class="text-2xl font-semibold mb-4">Leave a Comment</h1>
+
+      
+        <div class="rounded-2xl bg-white p-4 shadow-sm">
+          <form action="/blogs/comment/<%= blog._id %>" method="POST">
+            <div class="flex gap-3">
+              <div class="flex-shrink-0">
+                <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center  font-medium text-gray-700">You</div>
+              </div>
+              <div class="flex-1">
+                <label for="new-comment" class="sr-only">Add a comment</label>
+                <textarea id="new-comment" name="newcomment" rows="3" class="w-full rounded-lg border border-gray-200 p-2 focus:ring-2 focus:ring-indigo-200" placeholder="Write your comment..."></textarea>
+                <div class="mt-3 flex justify-end">
+                  <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-300">Submit</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
+      <% } %>
+
+    
+      <a href="/" class="inline-block mt-4 text-indigo-600 font-semibold hover:underline">
+        ← Back to Home
+      </a>
+
+
+    </div>
+  </div>
+</div>

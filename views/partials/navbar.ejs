@@ -1,0 +1,101 @@
+<div class="bg-gray-100">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg fixed w-full z-10">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a href="/" class="text-2xl font-bold text-blue-600">Sohag.blog</a>
+        </div>
+
+        <!-- Menu (desktop) -->
+       <div class="hidden md:flex space-x-6 items-center">
+      <a href="/" class="text-gray-700 hover:text-blue-600 transition">Home</a>
+
+      <% if (locals.user) { %>
+        <a href="/blogs/create-blogs" class="text-gray-700 hover:text-blue-600 transition">Add Blog</a>
+      <% } else { %>
+        <a href="/user/signup" class="text-gray-700 hover:text-blue-600 transition">Create Account</a>
+        <a href="/user/signin" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
+          Sign Up
+        </a>
+      <% } %>
+    </div>
+
+
+        <!-- User dropdown -->
+          <% if (locals.user) { %>
+        <div class="hidden md:flex items-center space-x-3 relative">
+          <img src="https://i.pravatar.cc/40" alt="User Avatar" class="w-9 h-9 rounded-full cursor-pointer" id="user-menu-btn">
+          <span class="text-gray-700 font-medium cursor-pointer flex items-center space-x-1" id="user-menu-btn-text">
+         <%= user.fullname %>
+            <span class="transform rotate-90 text-gray-500 ml-1 text-[16px]"> ›</span>
+          </span>
+          <!-- Dropdown -->
+          <div id="user-menu" class="hidden absolute right-0 top-12 w-40 bg-white shadow-lg rounded-xl py-2">
+  
+            <a href="/user/logout" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Logout</a>
+          </div>
+        </div>
+         <% } %>
+
+      
+        <div class="md:hidden">
+          <button id="menu-btn" class="text-gray-700 focus:outline-none">
+          
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+   
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+      <a href="/" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home</a>
+      <a href="/blogs/create-blogs" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Add Blog</a>
+
+     
+        <% if (locals.user) { %>
+      <div class="border-t border-gray-200 mt-2">
+        <a href="#" class="flex items-center px-4 py-3 space-x-2">
+          <img src="https://i.pravatar.cc/40" alt="User Avatar" class="w-8 h-8 rounded-full">
+          <span class="text-gray-700 font-medium"><%= user.fullname %></span>
+        </a>
+       
+        <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Logout</a>
+      </div>
+    </div>
+    <% } %>
+  </nav>
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+
+    // User dropdown toggle
+    const userBtn = document.getElementById('user-menu-btn');
+    const userBtnText = document.getElementById('user-menu-btn-text');
+    const userMenu = document.getElementById('user-menu');
+
+    [userBtn, userBtnText].forEach(el => {
+      el.addEventListener('click', () => {
+        userMenu.classList.toggle('hidden');
+      });
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+      if (!userBtn.contains(e.target) && !userBtnText.contains(e.target) && !userMenu.contains(e.target)) {
+        userMenu.classList.add('hidden');
+      }
+    });
+  </script>
+
+</div>
